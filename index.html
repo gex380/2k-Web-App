@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2K Team Randomizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="main-header">
+            <h1 class="logo">2K <span class="highlight">RANDOMIZER</span></h1>
+            <nav class="nav-links">
+                <button class="nav-btn active" data-target="setup">SETUP</button>
+                <button class="nav-btn" data-target="game">GAME</button>
+                <button class="nav-btn" data-target="leaderboard">LEADERBOARD</button>
+            </nav>
+        </header>
+
+        <!-- SETUP SECTION (Default View) -->
+        <section id="setup" class="view active">
+            <div class="card setup-card">
+                <h2>PLAYER DRAFT</h2>
+                <div class="form-group">
+                    <label for="player-input">Enter Names (One per line)</label>
+                    <textarea id="player-input"
+                        placeholder="LeBron James&#10;Steph Curry&#10;Kevin Durant..."></textarea>
+                </div>
+
+                <div class="settings-row">
+                    <div class="form-group">
+                        <label>Number of Teams</label>
+                        <div class="counter-input">
+                            <button id="dec-teams">-</button>
+                            <span id="team-count">2</span>
+                            <button id="inc-teams">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Wheel Type</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="wheel-toggle">
+                            <label for="wheel-toggle" class="toggle-label">
+                                <span class="toggle-text current">CURRENT</span>
+                                <span class="toggle-text classic">CLASSIC</span>
+                                <span class="toggle-handle"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="start-btn" class="btn primary-btn">START DRAFT</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAME SECTION (Hidden Initially) -->
+        <section id="game" class="view">
+            <div class="game-layout">
+                <!-- LEFT: TEAMS LIST -->
+                <div class="teams-panel">
+                    <div class="panel-header">
+                        <h2>TEAMS</h2>
+                        <button id="reset-btn" class="btn sm-btn">RESET</button>
+                    </div>
+                    <div id="teams-container" class="teams-list">
+                        <!-- Teams injected here -->
+                    </div>
+                    <div class="game-actions">
+                        <!-- Button removed -->
+                    </div>
+                </div>
+
+                <!-- RIGHT: THE WHEEL -->
+                <div class="wheel-panel">
+                    <div class="wheel-container">
+                        <canvas id="wheel-canvas" width="500" height="500"></canvas>
+                        <div class="wheel-pointer"></div>
+                        <button id="spin-btn" class="spin-btn">SPIN</button>
+                    </div>
+                    <div class="wheel-status">
+                        <h3 id="current-spinning-team">Waiting to spin...</h3>
+                        <p id="spins-remaining">3 Spins Remaining</p>
+                        <div class="turn-controls">
+                            <button id="suicide-btn" class="btn danger-btn hidden">SUICIDE SPIN</button>
+                            <button id="end-turn-btn" class="btn secondary-btn hidden">FINISH TURN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERBOARD SECTION (Hidden Initially) -->
+        <section id="leaderboard" class="view">
+            <div class="card leaderboard-card">
+                <div class="panel-header">
+                    <h2>HALL OF FAME</h2>
+                    <button id="reset-lb-btn" class="btn sm-btn danger-btn">RESET STATS</button>
+                </div>
+                <div class="add-player-form">
+                    <input type="text" id="new-player-name" placeholder="New Player Name">
+                    <button id="add-player-btn" class="btn sm-btn">ADD</button>
+                </div>
+                <table class="lb-table">
+                    <thead>
+                        <tr>
+                            <th>RANK</th>
+                            <th>PLAYER</th>
+                            <th>WINS</th>
+                            <th>LOSSES</th>
+                            <th>WIN %</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        <!-- Rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODAL FOR RESULTS -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>RECORD GAME</h2>
+                <div class="matchup-selector">
+                    <div class="team-select-group">
+                        <label>WINNER</label>
+                        <select id="winner-select"></select>
+                    </div>
+                    <div class="vs-badge">VS</div>
+                    <div class="team-select-group">
+                        <label>LOSER</label>
+                        <select id="loser-select"></select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="cancel-result" class="btn text-btn">CANCEL</button>
+                    <button id="confirm-result" class="btn primary-btn">UPDATE LEADERBOARD</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUSTOM CONFIRM MODAL -->
+        <div id="confirm-modal" class="modal hidden">
+            <div class="modal-content small-modal">
+                <h2 id="confirm-title">CONFIRM</h2>
+                <p id="confirm-message">Are you sure?</p>
+                <div class="modal-actions">
+                    <button id="confirm-cancel" class="btn text-btn">CANCEL</button>
+                    <button id="confirm-ok" class="btn danger-btn">YES</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
